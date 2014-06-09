@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.avaje.ebean.Page;
-
 import models.Product;
 import models.Tag;
 import play.data.Form;
@@ -15,7 +13,8 @@ import play.mvc.Http.MultipartFormData;
 import play.mvc.Result;
 import play.mvc.With;
 import views.html.products.details;
-import views.html.products.list;
+
+import com.avaje.ebean.Page;
 
 @With(CatchAction.class)
 public class Products extends Controller {
@@ -24,7 +23,7 @@ public class Products extends Controller {
 
 	public static Result list(Integer page) {
 		Page<Product> products = Product.find(page);
-		return ok(list.render(products));
+		return ok(views.html.catalog.render(products));
 	}
 	
 	public static Result newProduct() {

@@ -1,29 +1,33 @@
-@(title: String)(content: Html)
-
+@(title: String ="Paperclips!")(content: Html)
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
-        <link href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")" rel="stylesheet" media="screen">
-    </head>
-    <body>
-        @content
-        
-        @if(flash.containsKey("success")){
-  			<div class="alert alert-success">
-    			@flash.get("success")
-  			</div>
+<head>
+<title>@title</title>
+<link href="@routes.Assets.at("bootstrap/css/bootstrap.min.css")"
+     rel="stylesheet" media="screen">
+<link href="@routes.Assets.at("stylesheets/main.css")"
+     rel="stylesheet" media="screen">
+<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+<script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")"
+     type="text/javascript"></script>
+</head>
+<body>
+	@navigation()
+
+	<div class="container">
+		@if(flash.containsKey("success")){
+		<div class="alert alert-success">@flash.get("success")</div>
+		} @if(flash.containsKey("error")){
+		<div class="alert alert-warning">@flash.get("error")</div>
 		}
-		
-		@if(flash.containsKey("error")){
-	  		<div class="alert alert-warning">
-	    		@flash.get("error")
-	  		</div>
-		}
-        
-    </body>
+		@content
+	</div>
+	<div class="navbar navbar-fixed-bottom">
+		<div class="panel-footer">
+			<div class="container">
+				<p>Copyright ©2014 paperclips.example.com</p>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

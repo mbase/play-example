@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,6 +35,8 @@ public class Product extends Model implements PathBindable<Product> {
 	public String name;
 	
 	public String description;
+	
+	public Date date;
 	
 	@ManyToMany
 	public List<Tag> tags = new LinkedList<Tag>();

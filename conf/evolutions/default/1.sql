@@ -18,6 +18,7 @@ create table product (
   ean                       varchar(255),
   name                      varchar(255),
   description               varchar(255),
+  date                      timestamp,
   picture                   varbinary(255),
   constraint pk_product primary key (id))
 ;

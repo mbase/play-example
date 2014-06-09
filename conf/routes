@@ -16,3 +16,5 @@ DELETE  /products/:ean              controllers.Products.delete(ean: String)
 GET     /picture/:ean               controllers.Products.picture(ean: String)
 
 GET     /stockitems/                controllers.StockItems.index
+
+GET     /reports/                   controllers.Reports.index
