@@ -18,3 +18,8 @@ GET     /picture/:ean               controllers.Products.picture(ean: String)
 GET     /stockitems/                controllers.StockItems.index
 
 GET     /reports/                   controllers.Reports.index
+
+GET     /live                       controllers.Application.index
+GET     /live-update                controllers.Application.liveUpdate
+
+GET     /hello                      controllers.Application.hello()

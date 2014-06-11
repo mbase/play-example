@@ -1,42 +1,41 @@
 package controllers;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import models.Report;
 import play.libs.F.Function;
+import play.libs.F.Function0;
 import play.libs.F.Promise;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.*;
+import views.html.report;
 
 public class Reports extends Controller {
 
-	public static Result index() {
-		Promise<Report> promiseOfKPIReport = play.libs.Akka
-				.future(new Callable<Report>() {
-					public Report call() {
+	public static Promise<Result> index() {
+
+		Promise<Report> promiseOfKPIReport = Promise
+				.promise(new Function0<Report>() {
+					public Report apply() {
 						return intensiveKPIReport();
 					}
 				});
 
-		Promise<Report> promiseOfETAReport = play.libs.Akka
-				.future(new Callable<Report>() {
-					public Report call() {
+		Promise<Report> promiseOfETAReport = Promise
+				.promise(new Function0<Report>() {
+					public Report apply() {
 						return intensiveETAReport();
 					}
 				});
-		
-		Promise<List<Report>> promises = Promise.waitAll(promiseOfKPIReport, promiseOfETAReport);
-		
-		return async(
-				promises.map(
-						new Function<List<Report>, Result>() {
-							public Result apply(List<Report> reports) {
-								return ok(report.render(reports));
-							}
-						})
-		);
+
+		Promise<List<Report>> promises = Promise.sequence(promiseOfKPIReport,
+				promiseOfETAReport);
+
+		return promises.map(new Function<List<Report>, Result>() {
+			public Result apply(List<Report> reports) {
+				return ok(report.render(reports));
+			}
+		});
 
 	}
 
