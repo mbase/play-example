@@ -7,6 +7,7 @@
     
    var sendMessage = function() {
      socket.send($(this).text())
+     console.log($(this).text())
      $(this).css("background-color", "#EEE")
    }
    

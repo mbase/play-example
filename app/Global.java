@@ -6,7 +6,9 @@ import java.util.Map;
 import models.Tag;
 import play.Application;
 import play.GlobalSettings;
+import play.api.mvc.EssentialFilter;
 import play.libs.Yaml;
+import play.filters.csrf.CSRFFilter;
 
 import com.avaje.ebean.Ebean;
 
@@ -26,5 +28,11 @@ public class Global extends GlobalSettings {
 			}
 
 		}
+	}
+	
+	@Override
+	public <T extends EssentialFilter> Class<T>[] filters() {
+		Class[] filters = {CSRFFilter.class};
+		return filters;
 	}
 }
