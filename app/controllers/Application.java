@@ -1,12 +1,15 @@
 package controllers;
 
 import models.ExpeditedOrders;
+import models.User;
+import play.data.Form;
 import play.libs.F.Callback;
 import play.libs.F.Callback0;
 import play.mvc.Controller;
 import play.mvc.Result;
 import play.mvc.WebSocket;
-import views.html.index;
+import static play.data.Form.form;
+import views.html.*;
 
 public class Application extends Controller {
 
@@ -68,5 +71,30 @@ public class Application extends Controller {
 				out.write("Hello client");
 			}
 		};
+	}
+	
+	public static Result login() {
+		return ok(login.render(form(Login.class)));
+	}
+	
+	public static Result authenticate() {
+		Form<Login> loginForm = form(Login.class).bindFromRequest();
+		
+		String email = loginForm.get().email;
+		String password = loginForm.get().password;
+		
+		if (User.authenticate(email, password) == null) {
+			return forbidden("invalid password");
+		}
+		
+		session().clear();
+		session("email", email);
+		
+		return redirect(routes.Products.index());
+	}
+	
+	public static class Login {
+		public String email;
+		public String password;
 	}
 }

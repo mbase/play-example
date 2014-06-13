@@ -11,12 +11,14 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Http.MultipartFormData;
 import play.mvc.Result;
+import play.mvc.Security;
 import play.mvc.With;
 import views.html.products.details;
 
 import com.avaje.ebean.Page;
 
 @With(CatchAction.class)
+@Security.Authenticated(Secured.class)
 public class Products extends Controller {
 	
 	private static final Form<Product> productForm = Form.form(Product.class);

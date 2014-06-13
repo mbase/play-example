@@ -9,6 +9,7 @@ import play.GlobalSettings;
 import play.api.mvc.EssentialFilter;
 import play.libs.Yaml;
 import play.filters.csrf.CSRFFilter;
+import utils.BasicAutenticationFilter;
 
 import com.avaje.ebean.Ebean;
 
@@ -32,7 +33,7 @@ public class Global extends GlobalSettings {
 	
 	@Override
 	public <T extends EssentialFilter> Class<T>[] filters() {
-		Class[] filters = {CSRFFilter.class};
+		Class[] filters = {CSRFFilter.class, BasicAutenticationFilter.class};
 		return filters;
 	}
 }
