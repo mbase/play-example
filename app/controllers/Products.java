@@ -15,6 +15,8 @@ import play.mvc.Security;
 import play.mvc.With;
 import views.html.products.details;
 
+import securesocial.core.java.SecureSocial;
+
 import com.avaje.ebean.Page;
 
 @With(CatchAction.class)
@@ -28,6 +30,7 @@ public class Products extends Controller {
 		return ok(views.html.catalog.render(products));
 	}
 	
+	@SecureSocial.SecuredAction
 	public static Result newProduct() {
 		return ok(details.render(productForm));
 	}
